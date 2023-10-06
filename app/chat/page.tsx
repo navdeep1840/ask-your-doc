@@ -3,6 +3,7 @@ import ChatView from "@/components/ChatView";
 import Header from "@/components/Header";
 import SummaryAndStats from "@/components/SummaryAndStats";
 import { FileUploadContext } from "@/context/file";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -50,7 +51,17 @@ const Chat = (props: Props) => {
     }
   }, []);
 
-  if (loading) return <p> loadinggg...</p>;
+  if (loading)
+    return (
+      <div className="h-screen w-full">
+        <Image
+          src={"/load.gif"}
+          alt="load"
+          // className="h-auto w-full"
+          fill
+        />
+      </div>
+    );
 
   return (
     <>

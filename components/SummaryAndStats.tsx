@@ -1,10 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Header from "./Header";
+import { load } from "langchain/load";
 
 type Props = {};
 
 const SummaryAndStats = (props: Props) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [summary, setSummary] = useState<string>("");
+  useEffect(() => {
+    async function sendQuery() {
+      setLoading(true);
+
+      try {
+        const result = await fetch("/api/read", {
+          method: "POST",
+          body: JSON.stringify(
+            "Give me a brief of the document with limit of 300-400 words."
+          ),
+        });
+
+        const json = await result.json();
+
+        console.log(json.data);
+
+        setSummary(json.data);
+      } catch (err) {
+        console.log(`err: `, err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    sendQuery();
+  }, []);
+
   return (
     <section className="">
       <Header />
@@ -15,14 +45,9 @@ const SummaryAndStats = (props: Props) => {
             Summary of the pdf
           </p>
         </div>
+
         <div className="m-4 p-4  bg-[rgb(30,140,251)] backdrop-blur-lg bg-opacity-60   w-full   border-none outline-none rounded-lg text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro
-          distinctio a repellendus praesentium, libero nesciunt optio totam
-          culpa, eos, quos unde obcaecati adipisci deserunt dolore inventore
-          quasi maxime at hic. Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Porro distinctio a repellendus praesentium, libero
-          nesciunt optio totam culpa, eos, quos unde obcaecati adipisci deserunt
-          dolore inventore quasi maxime at hic.
+          {loading ? "Generating the summary for the document..... " : summary}
         </div>
       </div>
     </section>

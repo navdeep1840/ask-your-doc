@@ -10,17 +10,40 @@ const ChatView = (props: Props) => {
   const [result, setResult] = useState<string>();
   const [messages, setMessages] = useState<any>([]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (query.trim() !== "") {
       const abc = [...messages, { text: query, user: "You" }];
       setMessages([...abc]);
       setQuery("");
 
-      // Simulate a bot reply after a short delay
-      setTimeout(() => {
-        setMessages([...abc, { text: "This is a bot reply.", user: "Bot" }]);
-      }, 500);
+      if (!query) return;
+      setResult("");
+
+      // setMessages([...messages, { text: newMessage, user: "You" }]);
+
+      setLoading(true);
+
+      try {
+        const result = await fetch("/api/read", {
+          method: "POST",
+          body: JSON.stringify(query),
+        });
+
+        const json = await result.json();
+
+        console.log(`on page : ${json}`);
+
+        setResult(json.data);
+
+        setMessages([...abc, { text: json.data, user: "Bot" }]);
+      } catch (err) {
+        console.log(`err: `, err);
+      } finally {
+        setLoading(false);
+      }
     }
+
+    // Simulate a bot reply after a short delay
   };
 
   console.log(messages);
@@ -28,35 +51,9 @@ const ChatView = (props: Props) => {
   useEffect(() => {
     // Simulate an initial welcome message from the bot
     setTimeout(() => {
-      setMessages([...messages, { text: "Welcome to ChatGPT!", user: "Bot" }]);
+      setMessages([...messages, { text: "Start Asking...", user: "Bot" }]);
     }, 1000);
   }, []);
-
-  // async function sendQuery() {
-  //   if (!query) return;
-  //   setResult("");
-
-  //   setMessages([...messages, { text: newMessage, user: "You" }]);
-
-  //   setLoading(true);
-
-  //   try {
-  //     const result = await fetch("/api/read", {
-  //       method: "POST",
-  //       body: JSON.stringify(query),
-  //     });
-
-  //     const json = await result.json();
-
-  //     console.log(`on page : ${json}`);
-
-  //     setResult(json.data);
-  //   } catch (err) {
-  //     console.log(`err: `, err);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
 
   console.log(result);
 
@@ -66,7 +63,7 @@ const ChatView = (props: Props) => {
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`mb-1 flex  w-fit bg-blue-300 rounded-md  text-gray-800  p-2 hover:bg-blue-500 focus:bg-blue-500 ${
+            className={`mb-3 flex max-w-md w-fit bg-blue-300 rounded-md  text-gray-800  p-2 hover:bg-blue-500 focus:bg-blue-500 ${
               message.user === "You"
                 ? "self-end text-right "
                 : "self-start text-left "
