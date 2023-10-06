@@ -1,8 +1,9 @@
 "use client";
 
+import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import KeyAndFile from "@/components/KeyAndFile";
-import { send } from "process";
+
 import { useState } from "react";
 
 export default function Home() {
@@ -10,46 +11,19 @@ export default function Home() {
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function createIndexAndEmbeddings() {
-    try {
-      const result = await fetch("/api/setup", {
-        method: "POST",
-      });
-
-      const json = await result.json();
-      console.log(`result`, json);
-    } catch (err) {
-      console.log(`err: `, err);
-    }
-  }
-
-  async function sendQuery() {
-    if (!query) return;
-    setResult("");
-
-    setLoading(true);
-
-    try {
-      const result = await fetch("/api/read", {
-        method: "POST",
-        body: JSON.stringify(query),
-      });
-
-      const json = await result.json();
-
-      setResult(json.data);
-    } catch (err) {
-      console.log(`err: `, err);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
-    <div className="grid grid-cols-2 place-content-center">
-      <Hero />
-      <KeyAndFile />
-      {/* <input
+    <>
+      <Header />
+      <div className="grid grid-cols-1 md:grid-cols-2 place-content-center">
+        <Hero />
+        <KeyAndFile />
+      </div>
+    </>
+  );
+}
+
+{
+  /* <input
 
         className="border border-black "
         onChange={(e) => setQuery(e.target.value)}
@@ -62,7 +36,5 @@ export default function Home() {
 
       <button className="bg-blue-50" onClick={createIndexAndEmbeddings}>
         create
-      </button> */}
-    </div>
-  );
+      </button> */
 }

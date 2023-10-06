@@ -16,7 +16,7 @@ export const createPinconeIndex = async (
 
   console.log(indexName, vectorDimension, existingIndexes);
 
-  if (!existingIndexes[0].name.includes(indexName)) {
+  if (!existingIndexes[0]?.name.includes(indexName)) {
     await client.createIndex({
       name: indexName,
       dimension: vectorDimension,
