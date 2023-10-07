@@ -76,11 +76,12 @@ const Chat = (props: Props) => {
 
   return (
     <>
-      {/* <Header /> */}
-      <div className="grid grid-cols-1 lg:grid-cols-2   h-screen">
-        <SummaryAndStats />
-        <ChatView />
-      </div>
+      {!loading && (
+        <div className="grid grid-cols-1 lg:grid-cols-2   h-screen">
+          <SummaryAndStats />
+          <ChatView />
+        </div>
+      )}
     </>
   );
 };
