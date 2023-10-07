@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Providers } from "@/components/Provider";
+import { use, useEffect } from "react";
 
 export const metadata: Metadata = {
   title: "Unleash Your Doc",

@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     environment: process.env.PINCECONE_ENVIRONMENT || "",
   });
 
-  const text = await queryPincone(client, indexName, body);
+  const text = await queryPincone(client, indexName, body.query, body.key);
 
   return NextResponse.json({
     data: text,

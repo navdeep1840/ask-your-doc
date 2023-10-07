@@ -15,6 +15,7 @@ export const FileUploadContext = createContext<any>(undefined);
 // Define a provider component to wrap your app
 export function FileUploadProvider({ children }: { children: ReactNode }) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [key, setKey] = useState<string>("");
 
   // You can add your upload logic here
   const uploadFile = async () => {
@@ -35,7 +36,7 @@ export function FileUploadProvider({ children }: { children: ReactNode }) {
 
   return (
     <FileUploadContext.Provider
-      value={{ selectedFile, setSelectedFile, uploadFile }}
+      value={{ selectedFile, setSelectedFile, uploadFile, key, setKey }}
     >
       {children}
     </FileUploadContext.Provider>

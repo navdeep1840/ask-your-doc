@@ -1,6 +1,12 @@
 import { FileUploadProvider } from "@/context/file";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import React, { useRef, useState, useContext } from "react";
+import React, {
+  useRef,
+  useState,
+  useContext,
+  ChangeEvent,
+  FormEvent,
+} from "react";
 import { FileUploadContext } from "@/context/file";
 import { useRouter } from "next/navigation";
 
@@ -8,10 +14,11 @@ type Props = {};
 
 const KeyAndFile = (props: Props) => {
   // const [file, setFile] = useState<Blob | string>("");
+  const [openAIKey, setOpenAIKey] = useState<string>("");
 
   const router = useRouter();
 
-  const { setSelectedFile } = useContext(FileUploadContext);
+  const { setSelectedFile, setKey } = useContext(FileUploadContext);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -19,19 +26,37 @@ const KeyAndFile = (props: Props) => {
     fileInputRef.current?.click();
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (openAIKey === "") return;
+    setKey(openAIKey);
+    localStorage.setItem("key", openAIKey);
+    setOpenAIKey("");
+  };
+
   return (
     <div className="space-y-8 lg:p-24 p-8 ">
       <div className="space-y-3">
         <p className=" text-xl lg:text-3xl ">1. OpenAI Key</p>
-        <div className="flex gap-4 max-w-[31rem] items-center">
-          <input
-            type="text"
-            className="p-[0.9rem] bg-[rgb(30,140,251)] w-full  border-none outline-none rounded-lg text-white"
-          />
-          <button className="text-[1rem] p-[0.9rem] font-bold text-white bg-black rounded-lg">
-            Submit
-          </button>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="flex gap-4 max-w-[31rem] items-center">
+            <input
+              type="text"
+              className="p-[0.9rem] bg-[rgb(30,140,251)] w-full  border-none outline-none rounded-lg text-white"
+              value={openAIKey}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setOpenAIKey(e.target.value)
+              }
+              pattern="^sk-[a-zA-Z0-9]{32,}$"
+            />
+            <button
+              type="submit"
+              className="text-[1rem] p-[0.9rem] font-bold text-white bg-black rounded-lg"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
 
       <div className="space-y-3">

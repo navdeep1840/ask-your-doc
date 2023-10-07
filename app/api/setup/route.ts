@@ -12,13 +12,15 @@ export async function POST(req: NextRequest) {
   const data = await req.formData();
   const file: File | null = data.get("file") as unknown as File;
 
+  const key = data.get("key") as string;
+
   // const blob = new Blob(); // e.g. from a file input
 
   const loader = new WebPDFLoader(file);
 
   const docs = await loader.load();
 
-  console.log(file);
+  console.log(key);
 
   // const loader = new DirectoryLoader("./documents", {
   //   ".pdf": (path) => new PDFLoader(path),
@@ -38,7 +40,7 @@ export async function POST(req: NextRequest) {
   try {
     console.log(`here treid`);
     await createPinconeIndex(client, indexName, vectorDimension);
-    await updatePincone(client, indexName, docs);
+    await updatePincone(client, indexName, docs, key);
   } catch (err) {
     console.log(`error :`, err);
   }

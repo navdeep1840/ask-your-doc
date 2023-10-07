@@ -10,17 +10,23 @@ import React, { useContext, useEffect, useState } from "react";
 type Props = {};
 
 const Chat = (props: Props) => {
-  const { selectedFile } = useContext(FileUploadContext);
+  const { selectedFile, setKey, key } = useContext(FileUploadContext);
 
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function createIndexAndEmbeddings(file) {
+    const key = localStorage.getItem("key");
+    setKey(key);
+
+    console.log(key);
+
+    async function createIndexAndEmbeddings(file, key) {
       const formData = new FormData();
 
       formData.append("file", file);
+      formData.append("key", key);
       setLoading(true);
 
       try {
@@ -46,8 +52,8 @@ const Chat = (props: Props) => {
       }
     }
 
-    if (selectedFile) {
-      createIndexAndEmbeddings(selectedFile);
+    if (selectedFile && key) {
+      createIndexAndEmbeddings(selectedFile, key);
     }
   }, []);
 

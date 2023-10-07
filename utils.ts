@@ -31,7 +31,7 @@ export const createPinconeIndex = async (
   }
 };
 
-export const updatePincone = async (client, indexName, docs) => {
+export const updatePincone = async (client, indexName, docs, key) => {
   const index = client.index(indexName);
 
   console.log(` Pincone index upadte run  ${indexName}`);
@@ -57,7 +57,7 @@ export const updatePincone = async (client, indexName, docs) => {
     console.log(`now creating embeddings`);
 
     const embeddingsArrays = await new OpenAIEmbeddings({
-      openAIApiKey: process.env.OPENAI_API,
+      openAIApiKey: key,
     }).embedDocuments(
       chunks.map((chunk) => chunk.pageContent.replace(/\n/g, " "))
     );
@@ -90,11 +90,11 @@ export const updatePincone = async (client, indexName, docs) => {
   }
 };
 
-export const queryPincone = async (client, indexName, question) => {
+export const queryPincone = async (client, indexName, question, key) => {
   const index = client.Index(indexName);
 
   const queryEmbedding = await new OpenAIEmbeddings({
-    openAIApiKey: process.env.OPENAI_API,
+    openAIApiKey: key,
   }).embedQuery(question);
 
   console.log(` got query response`, queryEmbedding);
@@ -113,7 +113,7 @@ export const queryPincone = async (client, indexName, question) => {
 
   if (queryResponse.matches.length) {
     const llm = new OpenAI({
-      openAIApiKey: process.env.OPENAI_API,
+      openAIApiKey: key,
     });
     const chain = loadQAStuffChain(llm);
 

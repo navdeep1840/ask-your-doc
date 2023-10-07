@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import QueryInput from "./QueryInput";
+import { FileUploadContext } from "@/context/file";
 
 type Props = {};
 
@@ -9,6 +10,7 @@ const ChatView = (props: Props) => {
   const [query, setQuery] = useState<string>("");
   const [result, setResult] = useState<string>();
   const [messages, setMessages] = useState<any>([]);
+  const { key } = useContext(FileUploadContext);
 
   const handleSendMessage = async () => {
     if (query.trim() !== "") {
@@ -26,7 +28,7 @@ const ChatView = (props: Props) => {
       try {
         const result = await fetch("/api/read", {
           method: "POST",
-          body: JSON.stringify(query),
+          body: JSON.stringify({ query, key }),
         });
 
         const json = await result.json();

@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import Header from "./Header";
 import { load } from "langchain/load";
+import { FileUploadContext } from "@/context/file";
 
 type Props = {};
 
 const SummaryAndStats = (props: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [summary, setSummary] = useState<string>("");
+
+  const { key } = useContext(FileUploadContext);
+
   useEffect(() => {
     async function sendQuery() {
       setLoading(true);
@@ -18,7 +22,7 @@ const SummaryAndStats = (props: Props) => {
       try {
         const result = await fetch("/api/read", {
           method: "POST",
-          body: JSON.stringify(query),
+          body: JSON.stringify({ query, key }),
         });
 
         console.log(result);
@@ -34,9 +38,10 @@ const SummaryAndStats = (props: Props) => {
         setLoading(false);
       }
     }
-
-    sendQuery();
-  }, []);
+    if (key) {
+      sendQuery();
+    }
+  }, [key]);
 
   return (
     <section className="">
