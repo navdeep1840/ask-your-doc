@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Oxanium&family=Proza+Libre:wght@400;500;600;700;800&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,4 +9,8 @@ body {
   box-sizing: border-box;
   background-color: #0466c8;
   color: rgb(255, 255, 255);
+
+  /* font-family: "Oxanium", cursive; */
+  font-family: "Proza Libre", sans-serif !important;
+  font-style: normal;
 }

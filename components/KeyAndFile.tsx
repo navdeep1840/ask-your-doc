@@ -20,9 +20,9 @@ const KeyAndFile = (props: Props) => {
   };
 
   return (
-    <div className="space-y-8 p-24 ">
+    <div className="space-y-8 lg:p-24 p-8 ">
       <div className="space-y-3">
-        <p className="text-3xl ">1. OpenAI Key</p>
+        <p className=" text-xl lg:text-3xl ">1. OpenAI Key</p>
         <div className="flex gap-4 max-w-[31rem] items-center">
           <input
             type="text"
@@ -35,7 +35,7 @@ const KeyAndFile = (props: Props) => {
       </div>
 
       <div className="space-y-3">
-        <p className="text-3xl ">2. Upload Doucment</p>
+        <p className=" text-xl lg:text-3xl ">2. Upload Doucment</p>
         <div
           onClick={handleFileButtonClick}
           className="flex flex-col cursor-pointer text-gray-100 justify-center  gap-1 w-full max-w-[31rem] rounded-md items-center h-40 bg-[rgb(30,140,251)] "

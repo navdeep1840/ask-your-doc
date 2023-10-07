@@ -57,6 +57,7 @@ const Chat = (props: Props) => {
         <Image
           src={"/load.gif"}
           alt="load"
+          style={{ objectFit: "contain" }}
           // className="h-auto w-full"
           fill
         />
@@ -66,7 +67,7 @@ const Chat = (props: Props) => {
   return (
     <>
       {/* <Header /> */}
-      <div className="grid grid-cols-1 md:grid-cols-2  h-screen">
+      <div className="grid grid-cols-1 lg:grid-cols-2   h-screen">
         <SummaryAndStats />
         <ChatView />
       </div>

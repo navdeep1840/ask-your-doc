@@ -6,11 +6,11 @@ interface Props {}
 
 const Header = (props: Props) => {
   return (
-    <div className="p-10">
+    <div className="md:p-10 p-4">
       <Link href={"/"}>
-        <div className="flex items-center gap-4">
-          <PaperClipIcon className="h-6 w-6 " />
-          <h5 className="font-mono text-lg  ">Unleash Your Docs</h5>
+        <div className="flex items-center gap-3">
+          <PaperClipIcon className="h-5 w-5 " />
+          <h5 className=" md:text-lg  ">Unleash Your Docs</h5>
         </div>
       </Link>
     </div>

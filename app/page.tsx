@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className="grid grid-cols-1 md:grid-cols-2 place-content-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 place-content-center">
         <Hero />
         <KeyAndFile />
       </div>
