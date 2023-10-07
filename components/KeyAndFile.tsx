@@ -55,7 +55,7 @@ const KeyAndFile = (props: Props) => {
               type="submit"
               className="text-[1rem] p-[0.9rem] font-bold text-white bg-black rounded-lg"
             >
-              Submit
+              Verify
             </button>
           </div>
 
@@ -68,7 +68,7 @@ const KeyAndFile = (props: Props) => {
       </div>
 
       <div className="space-y-3">
-        <p className=" text-xl lg:text-3xl ">2. Upload Doucment</p>
+        <p className=" text-xl lg:text-3xl ">2. Upload Document</p>
         <div
           onClick={handleFileButtonClick}
           className="flex flex-col cursor-pointer text-gray-100 justify-center  gap-1 w-full max-w-[31rem] rounded-md items-center h-40 bg-[rgb(30,140,251)] "

@@ -9,9 +9,10 @@ body {
   box-sizing: border-box;
   background-color: #0466c8;
   color: rgb(255, 255, 255);
+  /* line-height: 130%; */
 
   /* font-family: "Oxanium", cursive; */
-  font-family: "Proza Libre", sans-serif;
+  /* font-family: "Proza Libre", sans-serif; */
   font-style: normal;
 }
 

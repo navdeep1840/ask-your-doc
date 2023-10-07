@@ -50,7 +50,7 @@ const SummaryAndStats = (props: Props) => {
         <div className="relative ">
           <Image src="/final.svg" alt="svg" height={440} width={100} />
           <p className="absolute left-[3rem] top-[50%] text-2xl">
-            Summary of the pdf
+            Summary of your pdf
           </p>
         </div>
 
