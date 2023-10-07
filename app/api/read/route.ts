@@ -14,8 +14,6 @@ export async function POST(req: NextRequest) {
 
   const text = await queryPincone(client, indexName, body);
 
-  console.log(`in the route : ${text}`);
-
   return NextResponse.json({
     data: text,
   });

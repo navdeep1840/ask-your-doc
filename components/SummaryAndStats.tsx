@@ -15,10 +15,13 @@ const SummaryAndStats = (props: Props) => {
       try {
         const result = await fetch("/api/read", {
           method: "POST",
-          body: JSON.stringify(
-            "Give me a brief of the document with limit of 300-400 words."
-          ),
+          body: JSON.stringify({
+            query:
+              "Give me a brief of the document with limit of 300-400 words.",
+          }),
         });
+
+        console.log(result);
 
         const json = await result.json();
 
