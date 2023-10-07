@@ -40,7 +40,6 @@ const Chat = (props: Props) => {
         const data = json.data;
 
         if (data.success) {
-          setLoading(false);
           alert(`yeahh`);
         } else {
           router.push("");
@@ -49,7 +48,12 @@ const Chat = (props: Props) => {
         console.log(`result`, json);
       } catch (err) {
         console.log(`err: `, err);
+      } finally {
+        setLoading(false);
       }
+    }
+    if (!key) {
+      router.push("/");
     }
 
     if (selectedFile && key) {

@@ -1,5 +1,5 @@
 import { FileUploadProvider } from "@/context/file";
-import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon, CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import React, {
   useRef,
   useState,
@@ -15,6 +15,7 @@ type Props = {};
 const KeyAndFile = (props: Props) => {
   // const [file, setFile] = useState<Blob | string>("");
   const [openAIKey, setOpenAIKey] = useState<string>("");
+  const [success, setSuccess] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -30,6 +31,7 @@ const KeyAndFile = (props: Props) => {
     e.preventDefault();
     if (openAIKey === "") return;
     setKey(openAIKey);
+    setSuccess(true);
     localStorage.setItem("key", openAIKey);
     setOpenAIKey("");
   };
@@ -56,6 +58,12 @@ const KeyAndFile = (props: Props) => {
               Submit
             </button>
           </div>
+
+          {success && (
+            <p className="flex gap-2 pt-2 items-center text-sm">
+              <CheckCircleIcon className="h-5 w-5 text-green-400" /> Key Added
+            </p>
+          )}
         </form>
       </div>
 

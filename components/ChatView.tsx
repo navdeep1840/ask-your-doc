@@ -61,11 +61,11 @@ const ChatView = (props: Props) => {
 
   return (
     <section className="mx-8 pb-8 lg:pb-0 lg:mx-12 flex flex-col justify-between h-[50vh] lg:h-[90vh] gap-6 self-center">
-      <div className="flex-1 w-full flex flex-col  overflow-y-auto p-4 bg-white bg-opacity-30 backdrop-blur-md rounded-md">
+      <div className="flex-1 w-full flex flex-col  overflow-y-auto hide-scrollbar p-4 bg-white bg-opacity-30 backdrop-blur-md rounded-md">
         {messages.map((message, index) => (
           <div
             key={index}
-            className={`mb-3 flex max-w-md w-fit bg-blue-100 rounded-md  text-gray-800  p-2 hover:bg-blue-500 focus:bg-blue-500 ${
+            className={`mb-3 flex max-w-md w-fit bg-blue-100 rounded-md  text-gray-800  p-2 hover:bg-blue-200 focus:bg-blue-500 ${
               message.user === "You"
                 ? "self-end text-right "
                 : "self-start text-left "
