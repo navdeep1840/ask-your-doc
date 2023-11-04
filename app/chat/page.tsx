@@ -1,6 +1,7 @@
 "use client";
 import ChatView from "@/components/ChatView";
 import Header from "@/components/Header";
+import PdfRenderer from "@/components/PdfViewer";
 import SummaryAndStats from "@/components/SummaryAndStats";
 import { FileUploadContext } from "@/context/file";
 import Image from "next/image";
@@ -10,7 +11,8 @@ import React, { useContext, useEffect, useState } from "react";
 type Props = {};
 
 const Chat = (props: Props) => {
-  const { selectedFile, setKey, key } = useContext(FileUploadContext);
+  const { selectedFile, setKey, key, setSelectedFile } =
+    useContext(FileUploadContext);
 
   const router = useRouter();
 
@@ -18,7 +20,10 @@ const Chat = (props: Props) => {
 
   useEffect(() => {
     const key = localStorage.getItem("key");
+    const file = localStorage.getItem("file");
+
     setKey(key);
+    setSelectedFile(selectedFile);
 
     console.log(key);
 
@@ -39,9 +44,7 @@ const Chat = (props: Props) => {
 
         const data = json.data;
 
-        if (data.success) {
-          alert(`yeahh`);
-        } else {
+        if (!data.success) {
           router.push("");
         }
 
@@ -57,6 +60,7 @@ const Chat = (props: Props) => {
     }
 
     if (selectedFile && key) {
+      localStorage.setItem("file", selectedFile);
       createIndexAndEmbeddings(selectedFile, key);
     }
   }, []);
@@ -77,8 +81,10 @@ const Chat = (props: Props) => {
   return (
     <>
       {!loading && (
-        <div className="grid grid-cols-1 lg:grid-cols-2   h-screen">
-          <SummaryAndStats />
+        <div className="grid grid-cols-1 lg:grid-cols-2 w-[100vw] gap-5  lg:h-screen overflow-hidden">
+          <PdfRenderer file={selectedFile} />
+
+          {/* <SummaryAndStats /> */}
           <ChatView />
         </div>
       )}

@@ -33,6 +33,7 @@ const KeyAndFile = (props: Props) => {
     setKey(openAIKey);
     setSuccess(true);
     localStorage.setItem("key", openAIKey);
+
     setOpenAIKey("");
   };
 
@@ -88,6 +89,7 @@ const KeyAndFile = (props: Props) => {
                 // setFile(event.target.files[0]);
                 // createIndexAndEmbeddings(event.target.files[0]);
                 setSelectedFile(event.target.files[0]);
+                localStorage.setItem("file", event.target.files[0]);
 
                 router.push("/chat");
               }
